@@ -1,5 +1,7 @@
 # QQLianLianKanCheat
-QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details/78569733
+QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details/78569733  
+
+
 
 使用方式，连连看游戏开始以后，运行main.py脚本即可  
 注意游戏窗口别被挡住了，或者超出屏幕了  
@@ -8,3 +10,10 @@ QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details
 想看的可以看看输出。  
 我一般是开个PowerShell在侧面，游戏一开始就执行main.py  
 脚本认为已经解完了，会有输出，自动结束  
+  
+  
+Python依赖库
+  PIL（pillow版）
+  pywin32（pip安装pypiwin32）
+  opencv(pip安装cv2）
+  pyautogui
