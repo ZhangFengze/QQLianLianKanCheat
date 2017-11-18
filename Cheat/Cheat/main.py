@@ -8,6 +8,7 @@ import win32gui
 import win32con
 import numpy
 import time
+import argparse
 
 import compare_image
 
@@ -135,7 +136,7 @@ def solve_matrix_one_step(matrix):
     for row in range(matrix_row):
         for col in range(matrix_col):
             # can't start from empty
-            if matrix[row][col]==0:
+            if matrix[row][col] == 0:
                 continue
             target_row,target_col = DFS(row,col,
                                         target_number=matrix[row][col],
@@ -151,17 +152,17 @@ def solve_matrix_one_step(matrix):
 
     for row in range(matrix_row):
         for col in range(matrix_col):
-            if matrix[row][col]!=0:
+            if matrix[row][col] != 0:
                 # no solution
                 error_exit('no solution??')
     # all empty, solved
     return None
 
 def in_range(row,col,matrix_row,matrix_col):
-    if row<0\
-        or col<0\
-        or row>=matrix_row\
-        or col>=matrix_col:
+    if row < 0\
+        or col < 0\
+        or row >= matrix_row\
+        or col >= matrix_col:
         return False
     return True
 
@@ -170,12 +171,12 @@ def used_lines(path):
     # '1' right
     # '2' down
     # '3' left
-    used_lines=0
-    last_char='x' # for start, must be different
+    used_lines = 0
+    last_char = 'x' # for start, must be different
     for char in path:
-        if char!=last_char:
+        if char != last_char:
             used_lines+=1
-        last_char=char
+        last_char = char
     return used_lines
 
 # DFS, stop once the path used over 3 lines
@@ -195,7 +196,7 @@ def DFS(now_row,now_col,
             return None,None
 
         # check path used over 3 lines?
-        if used_lines(path)>3:
+        if used_lines(path) > 3:
             return None,None
 
         # it's graph DFS, but we don't check if we've been here
@@ -204,25 +205,25 @@ def DFS(now_row,now_col,
         pass
 
         # check now number
-        my_number=matrix[now_row][now_col]
+        my_number = matrix[now_row][now_col]
         # found!
-        if my_number==target_number:
+        if my_number == target_number:
             return now_row,now_col
 
         # wrong way..
         # we can only wall on empty
-        if my_number!=empty_number:
+        if my_number != empty_number:
             return None,None
 
     # check over state
     # now we are on empty grid or start grid
 
     # go up
-    if path==str() or path[-1]!='2':
+    if path == str() or path[-1] != '2':
 
     # can't go back, if last time we go down...
 
-        new_path=path+'0'
+        new_path = path + '0'
         target_row,target_col = DFS(now_row - 1,now_col,
                                     target_number,
                                     empty_number,
@@ -232,13 +233,13 @@ def DFS(now_row,now_col,
         if target_row:
             return target_row,target_col
 
-    # go right 
-    if path==str() or path[-1]!='3':
+    # go right
+    if path == str() or path[-1] != '3':
 
     # can't go back, if last time we go left...
 
-        new_path=path+'1'
-        target_row,target_col = DFS(now_row,now_col+1,
+        new_path = path + '1'
+        target_row,target_col = DFS(now_row,now_col + 1,
                                     target_number,
                                     empty_number,
                                     matrix,matrix_row,matrix_col,
@@ -247,13 +248,13 @@ def DFS(now_row,now_col,
         if target_row:
             return target_row,target_col
 
-    # go down 
-    if path==str() or path[-1]!='0':
+    # go down
+    if path == str() or path[-1] != '0':
 
     # can't go back, if last time we go up...
 
-        new_path=path+'2'
-        target_row,target_col = DFS(now_row+1,now_col,
+        new_path = path + '2'
+        target_row,target_col = DFS(now_row + 1,now_col,
                                     target_number,
                                     empty_number,
                                     matrix,matrix_row,matrix_col,
@@ -262,13 +263,13 @@ def DFS(now_row,now_col,
         if target_row:
             return target_row,target_col
 
-    # go left 
-    if path==str() or path[-1]!='1':
+    # go left
+    if path == str() or path[-1] != '1':
 
     # can't go back, if last time we go right...
 
-        new_path=path+'3'
-        target_row,target_col = DFS(now_row,now_col-1,
+        new_path = path + '3'
+        target_row,target_col = DFS(now_row,now_col - 1,
                                     target_number,
                                     empty_number,
                                     matrix,matrix_row,matrix_col,
@@ -284,13 +285,13 @@ def execute_one_step(one_step,
                      game_area_left,game_area_top,
                      grid_width,grid_height):
 
-    from_row,from_col,to_row,to_col=one_step
+    from_row,from_col,to_row,to_col = one_step
 
-    from_x=game_area_left+(from_col+0.5)*grid_width
-    from_y=game_area_top+(from_row+0.5)*grid_height
+    from_x = game_area_left + (from_col + 0.5) * grid_width
+    from_y = game_area_top + (from_row + 0.5) * grid_height
 
-    to_x=game_area_left+(to_col+0.5)*grid_width
-    to_y=game_area_top+(to_row+0.5)*grid_height
+    to_x = game_area_left + (to_col + 0.5) * grid_width
+    to_y = game_area_top + (to_row + 0.5) * grid_height
 
     pyautogui.moveTo(from_x,from_y)
     pyautogui.click()
@@ -300,10 +301,25 @@ def execute_one_step(one_step,
 
     # hide mouse
     #pyautogui.moveTo(99999999,99999999)
+def print_matrix(matrix):
+    for row in range(11):
+        line = str()
+        for col in range(19):
+            if matrix[row][col] == 0:
+                id = '  '
+            else:
+                id = '%02d' % matrix[row][col]
+            line+='%s  ' % id
+        print(line)
 
 if __name__ == '__main__':
 
-    # 
+    # each step interval for sleep()
+    arg_parse = argparse.ArgumentParser()
+    arg_parse.add_argument('--interval',type=float,default=0.0)
+    args = arg_parse.parse_args()
+
+    #
 
     window_title = 'QQ游戏 - 连连看角色版'
     num_grid_per_row = 19
@@ -311,7 +327,7 @@ if __name__ == '__main__':
     screen_width = win32api.GetSystemMetrics(0)
     screen_height = win32api.GetSystemMetrics(1)
 
-    # 
+    #
 
     hwnd = win32gui.FindWindow(win32con.NULL,window_title)
     if hwnd == 0 :
@@ -353,19 +369,13 @@ if __name__ == '__main__':
                                             grid_height)
 
         # print
-        for row in range(11):
-            line = str()
-            for col in range(19):
-                if id_matrix[row][col] == 0:
-                    id = '  '
-                else:
-                    id = '%02d' % id_matrix[row][col]
-                line+='%s  ' % id
-            print(line)
+        print_matrix(id_matrix)
 
         # no need to rescan, if we play no-magic-item mode
-        #for i in range(10):
         while True:
+
+            print('---one step---')
+            print_matrix(id_matrix)
 
             # find one step solution
             one_step = solve_matrix_one_step(id_matrix)
@@ -377,10 +387,10 @@ if __name__ == '__main__':
                              game_area_left,game_area_top,
                              grid_width,grid_height)
 
-            from_row,from_col,to_row,to_col=one_step
-            id_matrix[from_row][from_col]=0
-            id_matrix[to_row][to_col]=0
+            from_row,from_col,to_row,to_col = one_step
+            id_matrix[from_row][from_col] = 0
+            id_matrix[to_row][to_col] = 0
 
-            time.sleep(0.5)
+            time.sleep(args.interval)
 
 
