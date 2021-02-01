@@ -1,5 +1,7 @@
 from enum import Enum
+from typing import Union
 import numpy as np
+import itertools
 
 
 class Grid(Enum):
@@ -7,48 +9,42 @@ class Grid(Enum):
     Empty = 0
 
 
-def FixSizeBoard(width, height):
-    class Board:
-        @staticmethod
-        def Width():
-            return width
+def Positions(rows: int, cols: int):
+    return [np.array((col, row)) for row in range(rows) for col in range(cols)]
 
-        @staticmethod
-        def Height():
-            return height
+
+def FixSizeBoard(cols: int, rows: int):
+    class Board:
+        def __init__(self, raw: np.array = np.array([Grid.Empty for position in Positions(rows, cols)])):
+            self.raw = raw
+
+        def At(self, x: int, y: int) -> Union[Grid, int]:
+            if x in range(cols) and y in range(rows):
+                return self.raw[y*cols+x]
+            return Grid.Invalid
+
+        def Set(self, x: int, y: int, v: int):
+            return Board(np.array([v if ((x, y) == position).all() else self.At(*position) for position in Board.Positions()]))
+
+        def __str__(self):
+            result = ""
+            for y in range(rows):
+                line = "|"
+                for x in range(cols):
+                    grid = self.At(x, y)
+                    line = line+"    |" if grid == Grid.Empty else line+" %02d |" % grid
+                result = result+line+"\n"
+            return result
 
         @staticmethod
         def Positions():
-            return [np.array((x, y)) for y in range(height) for x in range(width)]
-
-        def __init__(self, raw: np.array = None):
-            self.raw = raw
-            if self.raw is None:
-                self.raw = np.array(
-                    [Grid.Empty for position in Board.Positions()])
-
-        def At(self, x, y):
-            if x in range(width) and y in range(height):
-                return self.raw[y*width+x]
-            return Grid.Invalid
-
-        def Set(self, x, y, v):
-            return Board(np.array([v if ((x, y) == position).all() else self.At(*position) for position in Board.Positions()]))
+            return Positions(rows, cols)
 
     return Board
-
-
-def PrintBoard(board):
-    for y in range(board.Height()):
-        line = "|"
-        for x in range(board.Width()):
-            grid = board.At(x, y)
-            line = line+"    |" if grid == Grid.Empty else line+" %02d |" % grid
-        print(line)
 
 
 if __name__ == '__main__':
     Board = FixSizeBoard(3, 5)
     assert(Board().Set(0, 4, 3).At(0, 4) == 3)
     assert(Board().At(-1, 5) == Grid.Invalid)
-    PrintBoard(Board().Set(0, 1, 5).Set(1, 4, 1))
+    print(Board().Set(0, 1, 5).Set(1, 4, 1))

@@ -1,11 +1,9 @@
 from __future__ import annotations
+import numpy as np
 from enum import Enum
 from typing import NamedTuple
 from typing import Optional
-
 from itertools import count
-import numpy as np
-
 from board import Grid
 
 Direction = Enum('Direction', zip(
@@ -88,9 +86,13 @@ def FindOneStep(board):
 if __name__ == '__main__':
     from board import FixSizeBoard
     Board = FixSizeBoard(3, 3)
-    test = Board((
+    board = Board((
         Grid.Empty, Grid.Empty, Grid.Empty,
         Grid.Empty, 1,          Grid.Empty,
         Grid.Empty, 1,          Grid.Empty
     ))
-    print(FindOneStep(test))
+    oneStep = FindOneStep(board)
+    assert(oneStep is not None)
+    begin, end = oneStep
+    assert(all(begin == (1, 1)))
+    assert(all(end == (1, 2)))
