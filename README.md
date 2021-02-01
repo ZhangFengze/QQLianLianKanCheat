@@ -1,7 +1,7 @@
 # QQLianLianKanCheat
 QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details/78569733  
 
-![llk_gif](https://raw.githubusercontent.com/ZhangFengze/QQLianLianKanCheat/master/llk.gif "llk_gif")
+![demo](https://raw.githubusercontent.com/ZhangFengze/QQLianLianKanCheat/master/demo.gif "demo")
 
 
 
