@@ -8,8 +8,8 @@ QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details
 注意游戏窗口别被挡住了，或者超出屏幕了  
   
   
-Dependencies:
-	PIL(pillow)
-	pywin32(pypiwin32)
-	cv2
-	pyautogui
+**Dependencies**:  
+>PIL(pillow)  
+>pywin32(pypiwin32)  
+>cv2  
+>pyautogui  
