@@ -1,5 +1,0 @@
-Dependencies:
-	PIL
-	pywin32
-	cv2
-	pyautogui

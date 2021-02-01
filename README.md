@@ -16,8 +16,8 @@ QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details
 （不sleep的话，别的大朋友小朋友们看你秒解，不得打你啊）  
   
   
-Python依赖库  
-  PIL（pillow版）  
-  pywin32（pip安装pypiwin32）  
-  opencv(pip安装cv2）  
-  pyautogui  
+Dependencies:
+	PIL(pillow)
+	pywin32(pypiwin32)
+	cv2
+	pyautogui
