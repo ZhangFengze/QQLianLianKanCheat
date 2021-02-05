@@ -1,6 +1,8 @@
 from typing import NamedTuple
 from typing import Optional
 
+import cProfile
+
 import numpy as np
 
 import PIL.ImageGrab
@@ -69,3 +71,13 @@ def PositionToScreen(position: np.array, gameRect: Rect, rows: int, cols: int):
 def Click(screenPosition: np.array):
     pyautogui.moveTo(screenPosition)
     pyautogui.click()
+
+
+def Profile(func):
+    profile=cProfile.Profile()
+    profile.enable()
+
+    func()
+
+    profile.disable()
+    profile.print_stats()
