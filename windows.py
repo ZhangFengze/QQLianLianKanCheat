@@ -56,7 +56,7 @@ def GrabWindow(window) -> PIL.Image.Image:
     return GrabScreenRect(WindowRect(window))
 
 
-def Crop(image: PIL.Image, rect: Rect) -> PIL.Image.Image:
+def Crop(image: PIL.Image.Image, rect: Rect) -> PIL.Image.Image:
     return image.crop((rect.left, rect.top, rect.right, rect.bottom))
 
 
