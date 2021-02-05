@@ -60,6 +60,10 @@ def Crop(image: PIL.Image, rect: Rect) -> PIL.Image.Image:
     return image.crop((rect.left, rect.top, rect.right, rect.bottom))
 
 
+def Resize(image: PIL.Image.Image, width: int, height: int) -> PIL.Image.Image:
+    return image.resize((width, height))
+
+
 def PositionToScreen(position: np.array, gameRect: Rect, rows: int, cols: int):
     gridWidth, gridHeight = gameRect.width/cols, gameRect.height/rows
     col, row = position
