@@ -1,4 +1,4 @@
-from board import FixSizeBoard, Grid
+from board import FixSizeBoard, Grid, Positions
 from solver import FindOneStep
 from typing import Iterable
 from windows import *
@@ -28,8 +28,7 @@ def GrabGameRegion(window: int) -> PIL.Image.Image:
 
 def SplitIntoGrids(image: PIL.Image.Image, rows: int, cols: int):
     gridWidth, gridHeight = image.width/cols, image.height/rows
-    positions = [(x, y) for y in range(rows) for x in range(cols)]
-    for x, y in positions:
+    for x, y in Positions(rows, cols):
         gridRect = Rect(x*gridWidth, y*gridHeight, (x+1)
                         * gridWidth, (y+1)*gridHeight)
         yield Crop(image, gridRect)
