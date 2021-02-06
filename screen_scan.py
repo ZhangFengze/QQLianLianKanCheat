@@ -7,7 +7,11 @@ import datetime
 import PIL
 
 
-def GameRegionRect(windowRect: Rect) -> Rect:
+def GameRegionRect(window: int) -> Rect:
+    return GameRegionRect_(WindowRect(window))
+
+
+def GameRegionRect_(windowRect: Rect) -> Rect:
     return Rect(
         windowRect.left + 14.0 / 800.0 * windowRect.width,
         windowRect.top + 181.0 / 600.0 * windowRect.height,
@@ -16,9 +20,7 @@ def GameRegionRect(windowRect: Rect) -> Rect:
 
 
 def GrabGameRegion(window: int) -> PIL.Image.Image:
-    windowRect = WindowRect(window)
-    gameRect = GameRegionRect(windowRect)
-    return GrabScreenRect(gameRect)
+    return GrabScreenRect(GameRegionRect(window))
 
 
 def Backup(image: PIL.Image.Image):

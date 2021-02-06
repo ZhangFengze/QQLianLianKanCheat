@@ -36,7 +36,7 @@ def Solve(board):
         print(f"from {startPosition} to {endPosition}")
         print(board)
 
-        gameRect = GameRegionRect(WindowRect(GetGameWindow()))
+        gameRect = GameRegionRect(GetGameWindow())
         Click(PositionToScreen(startPosition, gameRect, 11, 19))
         Click(PositionToScreen(endPosition, gameRect, 11, 19))
 
