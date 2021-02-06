@@ -97,14 +97,22 @@ def Steps(board):
 
 if __name__ == '__main__':
     from board import FixSizeBoard
-    Board = FixSizeBoard(3, 3)
-    board = Board((
-        Grid.Empty, Grid.Empty, Grid.Empty,
-        Grid.Empty, 1,          Grid.Empty,
-        Grid.Empty, 1,          Grid.Empty
-    ))
-    oneStep = FindOneStep(board)
-    assert(oneStep is not None)
-    begin, end = oneStep
-    assert(all(begin == (1, 1)))
-    assert(all(end == (1, 2)))
+    grids = (
+        0,   0,   0,   0,   0,   0,   0,   0,   0,  11,   0,   0,   0,   0,   0,   3,   0,   0,   0,
+        0,   0,  17,   5, 243,   0,   0,   0,   0,  17, 245,   0,   0,   0,  13,  14,   6,   0,   0,
+        0,   6,  18,   7, 246,   3,   0,  11,   4,  11,  12,   8,   0,  14,   8,   7,   5,  11,   0,
+        0,   0,  16,   9,   2,   0,   0,   0,  18,   5,  17,   0,   0,   0,  14,   8, 243,   0,   0,
+        0,   0,   0,  18,   0,   0,   0,   0,   0,   7,   0,   0,   0,   0,   0,  13,   0,   0,   0,
+        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+        0,  18,   9,   0, 246,  13,   0,   4,  14,   0,   9,   4,   0,  15,   8,   0,  17,  15,   0,
+        0,   4,   0,   0,   0, 245,   0,  13,   0,   0,   0,  10,   0,  12,   0,   0,   0,  16,   0,
+        0,   0,   0, 243,   0,   0,   0,   0,   0,   3,   0,   0,   0,   0,   0,  10,   0,   0,   0,
+        0,  15,   0,   0,   0,   9,   0,  16,   0,   0,   0, 243,   0,   2,   0,   0,   0,  10,   0,
+        0,   6,   2,   0,   2,  10,   0,  16,   3,   0,   5, 247,   0,   7, 247,   0,   6,  15,   0,
+    )
+    grids = [grid if grid != 0 else Grid.Empty for grid in grids]
+    board = FixSizeBoard(19, 11)(grids)
+    for _, nowBoard in Steps(board):
+        board = nowBoard
+    assert(
+        all([board.At(*position) == Grid.Empty for position in board.Positions()]))
