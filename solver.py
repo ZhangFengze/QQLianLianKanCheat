@@ -83,6 +83,18 @@ def FindOneStep(board):
     return None
 
 
+def Steps(board):
+    while True:
+        step = FindOneStep(board)
+        if step is None:
+            break
+
+        startPosition, endPosition = step
+        board = board.Set(*startPosition, Grid.Empty)
+        board = board.Set(*endPosition, Grid.Empty)
+        yield step, board
+
+
 if __name__ == '__main__':
     from board import FixSizeBoard
     Board = FixSizeBoard(3, 3)
