@@ -4,7 +4,7 @@ from ReadWriteMemory import ReadWriteMemory
 def GetGridsFromMemory(processID):
     '''
     player = [0x00181c88+0x000187f4+playerID*0x04]
-    playerGrids = [player+0x04]+0x08
+    playerGrids = [player+0x04]+0x08+index   (one byte each grid, row major matrix)
     '''
     memory = ReadWriteMemory()
     process = memory.get_process_by_id(processID)
