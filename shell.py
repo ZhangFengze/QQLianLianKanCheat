@@ -76,6 +76,27 @@ def Steps(board):
         yield step, board
 
 
+def GetGridsFromMemory(processID):
+    from ReadWriteMemory import ReadWriteMemory
+
+    rwm = ReadWriteMemory()
+    process = rwm.get_process_by_id(processID)
+    process.open()
+
+    '''
+    player = [0x00181c88+0x000187f4+playerID*0x04]
+    playerGrids = [player+0x04]+0x08
+    '''
+
+    for index in range(19*11):
+        pointer = process.get_pointer(
+            0x00181c88+0x000187f4, offsets=(0x04, 0x08+index))
+        grid = process.read(pointer)
+        yield grid & 0xff
+
+    process.close()
+
+
 if __name__ == "__main__":
     # fix screen-capture in different dpi
     SetDpiAwareness()
@@ -85,11 +106,9 @@ if __name__ == "__main__":
     if window is None:
         ErrorExit(f"can not find window: {windowTitle}")
 
-    gameRegion = GrabGameRegion(window)
-    Backup(gameRegion)
-    grids = SplitIntoGrids(gameRegion, 11, 19)
-    categorized = Categorize(grids)
-    grids = [grid if grid != 0 else Grid.Empty for grid in categorized]
+    thread, process = GetWindowThreadProcessId(window)
+    grids = GetGridsFromMemory(process)
+    grids = [grid if grid != 0 else Grid.Empty for grid in grids]
     board = FixSizeBoard(19, 11)(list(grids))
 
     for step, board in Steps(board):

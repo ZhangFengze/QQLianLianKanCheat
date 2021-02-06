@@ -10,6 +10,7 @@ import PIL.ImageGrab
 import win32api
 import win32gui
 import win32con
+import win32process
 
 import pyautogui
 
@@ -23,6 +24,10 @@ def SetDpiAwareness() -> bool:
 def FindWindow(title: str) -> Optional[int]:
     handle = win32gui.FindWindow(win32con.NULL, title)
     return None if handle == 0 else handle
+
+
+def GetWindowThreadProcessId(window: int) -> (int, int):
+    return win32process.GetWindowThreadProcessId(window)
 
 
 class Rect(NamedTuple):
