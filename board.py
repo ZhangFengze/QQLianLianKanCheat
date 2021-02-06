@@ -32,7 +32,7 @@ def FixSizeBoard(cols: int, rows: int):
                 line = "|"
                 for x in range(cols):
                     grid = self.At(x, y)
-                    line = line+"    |" if grid == Grid.Empty else line+" %02d |" % grid
+                    line = line+"    |" if grid == Grid.Empty else line+" %3d|" % grid
                 result = result+line+"\n"
             return result
 
