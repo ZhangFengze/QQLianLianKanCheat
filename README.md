@@ -9,6 +9,6 @@
 **Dependencies**:  
 >PIL(pillow)  
 >pywin32(pypiwin32)  
->cv2  
+>cv2(opencv-python)
 >pyautogui  
 >ReadWriteMemory
