@@ -13,3 +13,4 @@ QQ连连看作弊器，详见http://blog.csdn.net/zhangfengz1995/article/details
 >pywin32(pypiwin32)  
 >cv2  
 >pyautogui  
+>ReadWriteMemory
