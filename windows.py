@@ -2,23 +2,13 @@ from typing import Tuple
 from typing import NamedTuple
 from typing import Optional
 
-import cProfile
-
 import numpy as np
-
-import PIL.ImageGrab
 
 import win32gui
 import win32con
 import win32process
 
 import pyautogui
-
-
-def SetDpiAwareness() -> bool:
-    import ctypes
-    errorCode = ctypes.windll.shcore.SetProcessDpiAwareness(2)
-    return errorCode == 0
 
 
 def FindWindow(title: str) -> Optional[int]:
@@ -49,26 +39,6 @@ def WindowRect(window: int) -> Rect:
     return Rect(*win32gui.GetWindowRect(window))
 
 
-def GrabScreen(left: int, top: int, right: int, bottom: int) -> PIL.Image.Image:
-    return PIL.ImageGrab.grab((left, top, right, bottom))
-
-
-def GrabScreenRect(rect: Rect) -> PIL.Image.Image:
-    return GrabScreen(rect.left, rect.top, rect.right, rect.bottom)
-
-
-def GrabWindow(window) -> PIL.Image.Image:
-    return GrabScreenRect(WindowRect(window))
-
-
-def Crop(image: PIL.Image.Image, rect: Rect) -> PIL.Image.Image:
-    return image.crop((rect.left, rect.top, rect.right, rect.bottom))
-
-
-def Resize(image: PIL.Image.Image, width: int, height: int) -> PIL.Image.Image:
-    return image.resize((width, height))
-
-
 def PositionToScreen(position: np.array, gameRect: Rect, rows: int, cols: int):
     gridWidth, gridHeight = gameRect.width/cols, gameRect.height/rows
     col, row = position
@@ -80,13 +50,3 @@ def PositionToScreen(position: np.array, gameRect: Rect, rows: int, cols: int):
 def Click(screenPosition: np.array):
     pyautogui.moveTo(screenPosition)
     pyautogui.click()
-
-
-def Profile(func):
-    profile=cProfile.Profile()
-    profile.enable()
-
-    func()
-
-    profile.disable()
-    profile.print_stats()

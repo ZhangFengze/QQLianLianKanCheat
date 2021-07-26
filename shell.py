@@ -1,8 +1,8 @@
 from board import FixSizeBoard, Grid
 from solver import Steps
-from memory_scan import GetGridsFromMemory
-from screen_scan import GameRegionRect, GetGridsFromScreen
-from windows import PositionToScreen, SetDpiAwareness, FindWindow, GetWindowThreadProcessId, Click
+from memory import GetGridsFromMemory
+from screen import GameRegionRect
+from windows import PositionToScreen, FindWindow, GetWindowThreadProcessId, Click
 
 
 def ErrorExit(log):
@@ -18,13 +18,7 @@ def GetGameWindow():
     return window
 
 
-def GetGrids_Screen():
-    SetDpiAwareness()
-    window = GetGameWindow()
-    return GetGridsFromScreen(window)
-
-
-def GetGrids_Memory():
+def GetGrids():
     window = GetGameWindow()
     _, process = GetWindowThreadProcessId(window)
     return GetGridsFromMemory(process)
@@ -42,7 +36,7 @@ def Solve(board):
 
 
 if __name__ == "__main__":
-    grids = GetGrids_Memory()
+    grids = GetGrids()
     grids = [grid if grid != 0 else Grid.Empty for grid in grids]
     board = FixSizeBoard(19, 11)(list(grids))
     Solve(board)
