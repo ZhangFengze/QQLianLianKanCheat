@@ -63,6 +63,5 @@ def Categorize(images: Iterable[PIL.Image.Image]):
 
 def GetGridsFromScreen(window: int):
     gameRegion = GrabGameRegion(window)
-    # Backup(gameRegion)
     grids = SplitIntoGrids(gameRegion, 11, 19)
     return Categorize(grids)

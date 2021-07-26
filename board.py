@@ -1,7 +1,6 @@
 from enum import Enum
 from typing import Union
 import numpy as np
-import itertools
 
 
 class Grid(Enum):
@@ -15,7 +14,7 @@ def Positions(rows: int, cols: int):
 
 def FixSizeBoard(cols: int, rows: int):
     class Board:
-        def __init__(self, raw: np.array = np.array([Grid.Empty for position in Positions(rows, cols)])):
+        def __init__(self, raw: np.array = np.array([Grid.Empty for _ in Positions(rows, cols)])):
             self.raw = raw
 
         def At(self, x: int, y: int) -> Union[Grid, int]:

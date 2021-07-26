@@ -2,7 +2,7 @@ from board import FixSizeBoard, Grid
 from solver import Steps
 from memory_scan import GetGridsFromMemory
 from screen_scan import GameRegionRect, GetGridsFromScreen
-from windows import PositionToScreen, SetDpiAwareness, FindWindow, GetWindowThreadProcessId, WindowRect, Click
+from windows import PositionToScreen, SetDpiAwareness, FindWindow, GetWindowThreadProcessId, Click
 
 
 def ErrorExit(log):

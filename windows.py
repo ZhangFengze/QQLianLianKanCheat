@@ -1,3 +1,4 @@
+from typing import Tuple
 from typing import NamedTuple
 from typing import Optional
 
@@ -7,7 +8,6 @@ import numpy as np
 
 import PIL.ImageGrab
 
-import win32api
 import win32gui
 import win32con
 import win32process
@@ -26,7 +26,7 @@ def FindWindow(title: str) -> Optional[int]:
     return None if handle == 0 else handle
 
 
-def GetWindowThreadProcessId(window: int) -> (int, int):
+def GetWindowThreadProcessId(window: int) -> Tuple[int, int]:
     return win32process.GetWindowThreadProcessId(window)
 
 
