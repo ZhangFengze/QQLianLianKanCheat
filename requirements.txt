@@ -2,4 +2,5 @@ pillow
 pypiwin32
 opencv-python
 pyautogui
+matplotlib
 ReadWriteMemory
