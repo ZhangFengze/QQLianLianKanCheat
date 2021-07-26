@@ -1,5 +1,5 @@
 # QQLianLianKanCheat
-![demo](https://raw.githubusercontent.com/ZhangFengze/QQLianLianKanCheat/master/demo.gif "demo")
+![demo](https://raw.githubusercontent.com/ZhangFengze/QQLianLianKanCheat/b46f497088b7c1d401c610999f18b9d0b653babc/demo.gif "demo")
 
 
 pip install -r requirements.txt 安装依赖
