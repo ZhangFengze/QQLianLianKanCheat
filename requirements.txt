@@ -1,0 +1,5 @@
+pillow
+pypiwin32
+opencv-python
+pyautogui
+ReadWriteMemory
